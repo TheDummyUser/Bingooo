@@ -1,10 +1,9 @@
-import React, { useRef, useEffect } from "react";
-import { Animated, View, Text, Platform, Dimensions } from "react-native";
-import { BottomTabBarProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
+import { View, Platform, Dimensions } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Saved from "@/screens/Saved";
 import TopTabNav from "./TopTabNav";
-import { fonts } from "@/utils/themes/fonts";
 import { useTheme } from "@/utils/themes/colors";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -16,69 +15,28 @@ const Tab_Nav = [
     { name: "Saved", component: Saved, ActiveIcon: "heart", InactiveIcon: "heart-outline", label: "Saved" },
 ];
 
-const AnimatedIcon = ({ name, focused, size, color } : any) => {
-    const scaleValue = useRef(new Animated.Value(1)).current;
-    const opacityValue = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        if (focused) {
-            Animated.parallel([
-                Animated.spring(scaleValue, {
-                    toValue: 1.2,
-                    friction: 4,
-                    tension: 40,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(opacityValue, {
-                    toValue: 1,
-                    duration: 200,
-                    useNativeDriver: true,
-                })
-            ]).start();
-        } else {
-            Animated.parallel([
-                Animated.spring(scaleValue, {
-                    toValue: 1,
-                    friction: 4,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(opacityValue, {
-                    toValue: 0,
-                    duration: 200,
-                    useNativeDriver: true,
-                })
-            ]).start();
-        }
-    }, [focused]);
-
+const TabIcon = ({ name, focused, color }) => {
+    const theme = useTheme();
     return (
-        <View style={{ alignItems: "center", width: 60, height: 32 }}>
-            <Animated.View
-                style={{
-                    position: 'absolute',
-                    width: 60,
-                    height: 32,
-                    borderRadius: 18,
-                    backgroundColor: color,
-                    opacity: opacityValue.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0, 0.12],
-                    }),
-                    transform: [{ scale: scaleValue }],
-                }}
-            />
-            <Animated.View
-                style={{
-                    transform: [{ scale: scaleValue }],
-                }}
-            >
-                <Ionicons 
-                    name={name} 
-                    size={20} 
-                    color={focused ? color : '#8E8E93'} 
-                    style={{ marginTop: 4 }}
+        <View style={{ alignItems: "center", width: 30, height: 30 }}>
+            {focused && (
+                <View
+                    style={{
+                        position: 'absolute',
+                        width: 60,
+                        height: 30,
+                        borderRadius: 18,
+                        backgroundColor: color,
+                        opacity: 0.2,
+                    }}
                 />
-            </Animated.View>
+            )}
+            <Ionicons 
+                name={name} 
+                size={20}
+                color={focused ? color : theme.base03} 
+                style={{ marginTop: 4.5 }}
+            />
         </View>
     );
 };
@@ -92,11 +50,11 @@ export const BottomTabNav = () => {
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 headerShown: false,
-                tabBarIcon: ({ focused, color, size }) => {
+                tabBarIcon: ({ focused, color }) => {
                     const item = Tab_Nav.find(tab => tab.name === route.name);
                     if (!item) return null;
                     const iconName = focused ? item.ActiveIcon : item.InactiveIcon;
-                    return <AnimatedIcon name={iconName} focused={focused} size={size} color={color} />;
+                    return <TabIcon name={iconName} focused={focused} color={color} />;
                 },
                 tabBarShowLabel: false,
                 tabBarStyle: {
@@ -105,32 +63,18 @@ export const BottomTabNav = () => {
                     left: 0,
                     right: 0,
                     backgroundColor: Platform.select({
-                        ios: theme.sBg,
-                        android: theme.bg
+                        ios: theme.base00,
+                        android: theme.base00
                     }),
-                    borderTopWidth: 0,
+                    borderTopWidth: 1,
                     borderTopColor: Platform.select({
                         ios: 'rgba(0, 0, 0, 0.2)',
-                        android: 'rgba(0, 0, 0, 0.12)',
+                        android: theme.base02,
                     }),
                     height: 49 + bottomPadding,
-                    // paddingBottom: bottomPadding,
-                    // paddingTop: 8,
-                    elevation: 0,
-                    ...Platform.select({
-                        ios: {
-                            shadowColor: '#000',
-                            shadowOffset: {
-                                width: 0,
-                                height: -3,
-                            },
-                            shadowOpacity: 0.05,
-                            shadowRadius: 4,
-                        },
-                    }),
                 },
-                tabBarActiveTintColor: theme.text,
-                tabBarInactiveTintColor: '#8E8E93',
+                tabBarActiveTintColor: theme.base05,
+                tabBarInactiveTintColor: theme.base07,
             })}
         >
             {Tab_Nav.map((item, index) => (

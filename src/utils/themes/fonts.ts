@@ -1,3 +1,5 @@
+import { fontPixelSize } from "../baseUtils"
+
 // poppins
 export const fonts = {
     black: 'Poppins-Black',
@@ -21,10 +23,13 @@ export const fonts = {
 }
 
 export const fontSizes = {
-    small: 12,
-    base: 14,
-    medium: 16,
-    large: 20,
-    xLarge: 24,
-    xxLarge: 28
+    small: fontPixelSize(12),
+    base: fontPixelSize(14),
+    medium: fontPixelSize(16),
+    large: fontPixelSize(18),
+    xLarge: fontPixelSize(20),
+    xxLarge: fontPixelSize(22),
+    xxxLarge: fontPixelSize(24),
+    xxxxLarge: fontPixelSize(26),
+    xxxxxLarge: fontPixelSize(28),
 }

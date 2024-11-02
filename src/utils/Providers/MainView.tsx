@@ -16,8 +16,8 @@ const MainView: React.FC<{ children: React.ReactNode}> = ({children}) => {
     const theme = useTheme();
 
   return (
-    <SafeAreaView style={[styles.container, {backgroundColor: theme.bg}]}>
-      <StatusBar barStyle={colorScheme === "dark" ? "light-content" : "dark-content"} backgroundColor={theme.bg} />
+    <SafeAreaView style={[styles.container, {backgroundColor: theme.base00}]}>
+      <StatusBar barStyle={colorScheme === "dark" ? "light-content" : "dark-content"} backgroundColor={theme.base00} />
       {children}
     </SafeAreaView>
   )

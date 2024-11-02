@@ -1,6 +1,5 @@
 // hacker news stories
 
-
 export interface Story {
     by: string;
     descendants: number;

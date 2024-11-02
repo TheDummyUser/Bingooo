@@ -16,7 +16,8 @@ const Saved = () => {
 
   return (
     <MainView>
-      <ContributionGraph data={contributionData} onDayPress={handleDayPress} />
+      {/* <ContributionGraph data={contributionData} onDayPress={handleDayPress} /> */}
+      <Text>Saved</Text>
     </MainView>
   )
 }

@@ -12,7 +12,7 @@ const CustomTopBar = (props: MaterialTopTabBarProps) => {
         height: 100,
         width: "100%",
         justifyContent: "center",
-        backgroundColor: theme.bg,
+        backgroundColor: theme.base00,
       }}
     >
       <View
@@ -27,29 +27,29 @@ const CustomTopBar = (props: MaterialTopTabBarProps) => {
               key={index}
               onPress={() => props.navigation.navigate(route.name)}
               style={{
-                backgroundColor: isActive ? theme.sBg : theme.bg,
+                backgroundColor: isActive ? theme.base00 : theme.base01,
                 // padding: 15,
-                paddingVertical: 10,
-                paddingHorizontal: 15,
+                paddingVertical: 13,
+                paddingHorizontal: 16,
                 borderRadius: 20,
                 justifyContent: "center",
                 alignItems: "center",
                 marginLeft: 20,
                 // Shadow styles for iOS
-                shadowColor: isActive ? theme.border : theme.sBg,
+                shadowColor: isActive ? theme.base02 : theme.base0F,
                 shadowOffset: {
                   width: 0,
                   height: 2,
                 },
                 shadowOpacity: isActive ? 0.25 : 0,
-                shadowRadius: 3.84,
+                shadowRadius: 4,
                 // Elevation for Android
-                elevation: isActive ? 5 : 0,
+                elevation: isActive ? 10 : 0,
               }}
             >
               <Text
                 style={{
-                  color: isActive ? theme.sText : theme.text,
+                  color: isActive ? theme.base07 : theme.base05,
                   fontFamily: fonts.regular
                 }}
               >

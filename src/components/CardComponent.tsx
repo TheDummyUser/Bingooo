@@ -12,43 +12,51 @@ interface CardProps {
   story: EnhancedStory
   onPress?: () => void
   navigationScreen?: string
+  onLongPress?: () => void
 }
 
-const CardComponent: React.FC<CardProps> = ({story, onPress}) => {
+const CardComponent: React.FC<CardProps> = ({story, onPress, onLongPress}) => {
   const theme = useTheme();
 
   const time = moment.unix(story.time).fromNow();
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={styles.container} onPress={onPress} key={story.id} onLongPress={onLongPress}>
       
       <View style={styles.TitleTimeBy}>
-        <Text style={[styles.fontFam, {color: theme.text, fontSize: fontSizes.medium}]} numberOfLines={2}>
+        <Text style={[styles.fontFam, {color: theme.base07, fontSize: fontSizes.medium}]} numberOfLines={2}>
           {story.title}
         </Text>
 
         <View style={styles.ByTime}>
-          <Text style={[styles.fontFam, {color: theme.text, fontSize: fontSizes.small}]}>
-            by {story.by}
-          </Text>
-          <Text style={[styles.fontFam, {color: theme.text, fontSize: fontSizes.small}]}>
-            {time}
-          </Text>
+          <BaseTextComponent child={`by ${story.by}`} />
+          <BaseTextComponent child={`${story.score} points`} />
+          <BaseTextComponent child={time} />
         </View>
       </View>
 
-      <View style={styles.BookmarkContainer}>
+      {/* <View style={styles.BookmarkContainer}>
         <Ionicons
-          name="heart-outline"
+          name="bookmark-outline"
           size={20}
-          color={theme.text}
+          color={theme.base07}
           onPress={() => console.log('bookmark')}
         />
-      </View>
+      </View> */}
 
     </TouchableOpacity>
   )
 }
+
+const BaseTextComponent: React.FC<{child: string}> = ({child}) => {
+  const theme = useTheme();
+  return (
+    <Text style={[styles.fontFam, {color: theme.base07, fontSize: fontSizes.small}]}>
+      {child}
+    </Text>
+  )
+}
+
 
 export default CardComponent
 const styles = StyleSheet.create({
@@ -63,9 +71,10 @@ const styles = StyleSheet.create({
   },
   ByTime: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingRight: 10,
+    gap: 15
   },
   BookmarkContainer: {
     width: "10%",
@@ -73,7 +82,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   TitleTimeBy: {
-    width: "90%",
+    // width: "90%",
     justifyContent: 'space-evenly',
   },
   fontFam: {
