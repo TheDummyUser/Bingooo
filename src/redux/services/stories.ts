@@ -16,7 +16,7 @@ export const hackerNewsApi = createApi({
       totalStories: number;
       currentPage: number;
     }, {
-      type: 'top' | 'new' | 'ask' | 'show' | 'job';
+      type: 'top' | 'new' | 'ask' | 'show' | 'job' | 'best';
       page?: number;
     }>({
       async queryFn(arg, _queryApi, _extraOptions, fetchWithBQ) {

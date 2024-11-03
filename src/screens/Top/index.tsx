@@ -7,7 +7,6 @@ import CardComponent from '@/components/CardComponent'
 import { fonts, fontSizes } from '@/utils/themes/fonts'
 
 const Top = () => {
-  const theme  = useTheme();
   const [page, setPage] = React.useState(1);
   const {data, isLoading, error} = useGetStoriesQuery({type: 'top', page});
 
@@ -21,7 +20,7 @@ const Top = () => {
         onEndReached={() => setPage(page + 1)}
         onEndReachedThreshold={0.5}
         ListFooterComponent={isLoading ? <Text>Loading...</Text> : null}
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={true}
         contentContainerStyle={{paddingBottom: 60, paddingHorizontal: 16}}
       />
     </MainView>
@@ -29,10 +28,3 @@ const Top = () => {
 }
 
 export default Top
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: fontSizes.xxLarge,
-    fontFamily: fonts.regular,
-  },
-})

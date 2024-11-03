@@ -1,4 +1,4 @@
-package com.bingoooo
+package com.bunny
 
 import android.app.Application
 import com.facebook.react.PackageList
