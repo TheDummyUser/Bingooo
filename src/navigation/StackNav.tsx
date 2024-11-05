@@ -1,8 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomTabNav } from "./BottomTab";
 import StoryScreen from "@/screens/StoryScreen"
-const Stack = createNativeStackNavigator();
+import { RootStackParamList } from "@/utils/types";
 
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const StackNav = () => {
     return (

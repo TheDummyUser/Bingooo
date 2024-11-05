@@ -5,8 +5,9 @@ import { fonts, fontSizes } from '@/utils/themes/fonts'
 import { useTheme } from '@/utils/themes/colors'
 import { EnhancedStory, useGetStoriesQuery } from '@/redux/services/stories'
 import CardComponent from '@/components/CardComponent'
+import { NewScreenProps } from '@/utils/types'
 
-const New = () => {
+const New: React.FC<NewScreenProps> = ({navigation, route}) => {
   const theme = useTheme();
   const [page, setPage] = React.useState(1);
   const {data, isLoading, error} = useGetStoriesQuery({type: 'new', page});
@@ -14,7 +15,7 @@ const New = () => {
     <MainView>
         <FlatList
         data={data?.posts}
-        renderItem={({item} : {item: EnhancedStory}) => <CardComponent story={item} onPress={() => console.log(item.id)} onLongPress={() => console.log(item.id, 'saving this to supabase table')} />}
+        renderItem={({item} : {item: EnhancedStory}) => <CardComponent story={item} onPress={() => navigation.navigate('StoryScreen', {id: item.id})} onLongPress={() => console.log(item.id, 'saving this to supabase table')} />}
         keyExtractor={(item) => item.id.toString()}
         onEndReached={() => setPage(page + 1)}
         onEndReachedThreshold={0.5}
